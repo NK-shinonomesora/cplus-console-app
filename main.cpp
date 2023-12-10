@@ -1,16 +1,21 @@
 #include <iostream>
 #include "header/display.hpp"
-
-// void func(int n) {
-//     std::cout << "m1を作成しました。";
-//     std::cin.get();  // Wait for user to press Enter
-// }
+#include "header/page.hpp"
 
 int main() {
     Display d;
-    d.outputDescription();
-    d.outputTitles();
-    d.outputContentBy(1);
+    Page p;
+
+    d.home();
+
+    while(true) {
+      p.getInput();
+      Page::State state = p.getState();
+      if(state == Page::State::EXIT) break;
+      state == Page::State::HOME ? d.home() : d.contentBy(p.getNumber());
+    }
+
+    std::cout << "アプリを終了しました。" << std::endl;
 
     return 0;
 }
