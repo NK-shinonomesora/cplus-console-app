@@ -1,14 +1,33 @@
 #include <iostream>
 #include "../header/page.hpp"
 
-Page::Page() : number {-1}, state {State::HOME} {}
+Page::Page() : numOnHome {-1}, numOnContent {-1},  numOnSource {-1}, state {State::HOME} {}
 
-int Page::getNumber() {
-  return number;
+int Page::getNumOnHome() {
+  return numOnHome;
+}
+
+int Page::getNumOnContent() {
+  return numOnContent;
+}
+
+int Page::getNumOnSource() {
+  return numOnSource;
 }
 
 void Page::getInput() {
-  std::cin >> number;
+  switch(state) {
+    case State::HOME:
+      std::cin >> numOnHome;
+      break;
+    case State::CONTENT:
+      std::cin >> numOnContent;
+      break;
+    case State::SOURCE:
+      std::cin >>  numOnSource;
+    case State::EXIT:
+      break;
+  }
 }
 
 Page::State Page::getState() {
@@ -22,10 +41,15 @@ void Page::setState(State s) {
 void Page::change() {
   switch(state) {
     case State::HOME:
-      number == 0 ? exit() : toContent();
+      numOnHome == 0 ? exit() : toContent();
       break;
     case State::CONTENT:
-      number == 0 ? exit() : number == 1 ? toHome() : toSource();
+      numOnContent == 0 ? exit() : numOnContent == 1 ? toHome() : toSource();
+      break;
+    case State::SOURCE:
+      numOnSource == 0 ? exit() : numOnSource == 1 ? toHome() : toContent();
+      break;
+    case State::EXIT:
       break;
   }
 }

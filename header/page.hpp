@@ -16,14 +16,18 @@ public:
   };
 
   Page();
-  int getNumber();
+  int getNumOnHome();
+  int getNumOnContent();
+  int getNumOnSource();
   void getInput(); //ユーザからの入力を受け取る
   State getState();
   void setState(Page::State);
   void change(); //ページの状態を変化させる
   
 private:
-  int number;
+  int numOnHome;
+  int numOnContent;
+  int numOnSource;
   State state;
 
   void exit();
