@@ -2,17 +2,14 @@
 #define DISPLAYCHAPTER_H
 
 #include "display.hpp"
-#include "chapter.hpp"
-#include "chapter1.hpp"
-#include <vector>
 
 class DisplayChapter : public Display {
 public:
-  DisplayChapter();
-  void display() override;
+  DisplayChapter(int index);
+  virtual void display() = 0;
 
-private:
-  std::vector<Chapter*> chapters;
+protected:
+  int index;
 };
 
 #endif

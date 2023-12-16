@@ -7,31 +7,24 @@
 #include "header/displayDescription.hpp"
 #include "header/displayHelpHome.hpp"
 #include "header/displayChapter.hpp"
-
-void func(Display& d) {
-    d.display();
-}
+#include "header/page.hpp"
+#include "utils/displayHome.hpp"
+#include "utils/waitUserInput.hpp"
+#include "utils/changeState.hpp"
+#include "utils/judgeIsExit.hpp"
+#include "utils/displayNext.hpp"
 
 int main() {
-    // Display d;
-    // Page p;
+    Page page;
+    displayHome();
 
-    // d.home();
+    while(true) {
+      waitUserInput(page);
+      changeState(page);
+      if(judgeIsExit(page)) break;
+      displayNext(page);
+    }
 
-    // while(true) {
-    //   p.getInput();
-    //   Page::State state = p.getState();
-    //   if(state == Page::State::EXIT) break;
-    //   state == Page::State::HOME ? d.home() : d.contentBy(p.getNumber());
-    // }
-
-    // std::cout << "アプリを終了しました。" << std::endl;
-    DisplayDescription dd;
-    DisplayHelpHome dh;
-    DisplayChapter dc;
-    func(dd);
-    func(dc);
-    func(dh);
-
+    std::cout << "アプリを終了しました。" << std::endl;
     return 0;
 }
