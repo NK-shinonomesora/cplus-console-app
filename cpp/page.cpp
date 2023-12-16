@@ -9,7 +9,6 @@ int Page::getNumber() {
 
 void Page::getInput() {
   std::cin >> number;
-  change();
 }
 
 Page::State Page::getState() {
