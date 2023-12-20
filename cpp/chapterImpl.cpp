@@ -17,9 +17,17 @@ void ChapterImpl::outputTitle() {
 }
 
 void ChapterImpl::outputContent() {
+  std::cout << std::endl;
+  std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
   read(contentPath);
+  std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+  std::cout << std::endl;
 }
 
 void ChapterImpl::outputSource() {
+  std::cout << std::endl;
+  std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
   read(sourcePath);
+  std::cout << "+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++" << std::endl;
+  std::cout << std::endl;
 }

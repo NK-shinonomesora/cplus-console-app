@@ -1,0 +1,20 @@
+#include <iostream>
+
+void arrayTest(int size) {
+  int* array = new int[size];
+  for(int i = 0; i < size; i++) {
+    array[i] = 1;
+  }
+  std::cout << "メモリ確保";
+  std::cin.get(); 
+  // この段階でプロセスに size分のメモリが確保される。
+}
+
+int main() {
+  arrayTest(1000000);
+  // アクティビティモニタではメモリが解放されていないように見える。
+  arrayTest(2000000);
+  // 2回目実行後にプロセスが消費しているメモリは1回目と2回目で確保した合計値。
+  // よって、関数終了後にメモリは解放されていない。
+  return 0;
+}

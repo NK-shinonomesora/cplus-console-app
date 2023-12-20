@@ -1,0 +1,54 @@
+// myClass.hpp
+
+#include <iostream>
+#include <vector>
+
+class MyClass {
+public:
+  MyClass(int size);
+  void memAllocate();
+  int get();
+
+private:
+  int size;
+  std::vector<int> v;
+};
+-----------------------
+// myClass.cpp
+
+#include "myClass.hpp"
+
+MyClass::MyClass(int size) : size {size} {}
+
+void MyClass::memAllocate() {
+  for(int i = 0; i < size; i++) {
+    v.push_back(1);
+  }
+}
+
+int MyClass::get() {
+  return v[0];
+}
+------------------------
+// main.cpp
+
+#include <iostream>
+#include "myClass.hpp"
+
+void func(MyClass& m) { //参照の場合: (MyClass& m)
+  m.memAllocate();     //参照の場合: m.memAllocate();
+}
+
+void func2(MyClass& m) {              //参照の場合: (MyClass& m)
+  std::cout << m.get() << std::endl; //参照の場合: m.get()
+  // 1が出力される
+}
+
+int main() {
+  MyClass m(1000000); //参照の場合: MyClass m(1000000)
+  func(m);
+  MyClass m2 = m; //mがm2にコピーされる。つまりメンバの内容もコピーされる。
+  func2(m2);
+
+  return 0;
+}

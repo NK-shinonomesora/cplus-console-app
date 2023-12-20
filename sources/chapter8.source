@@ -1,0 +1,49 @@
+// myClass.hpp
+
+#include <iostream>
+
+class MyClass {
+public:
+  MyClass(int size);
+  ~MyClass();
+  void memAllocate();
+
+private:
+  int size;
+  int* array;
+};
+-------------------------------
+// myClass.cpp
+
+#include "myClass.hpp"
+
+MyClass::MyClass(int size) : size {size}, array {new int[size]} {}
+
+MyClass::~MyClass() {
+  delete[] array;
+  std::cout << "デストラクタにてメモリを解放" << std::endl;
+}
+
+void MyClass::memAllocate() {
+  for(int i = 0; i < size; i++) {
+    array[i] = 1;
+  }
+}
+---------------------------------
+// main.cpp
+
+#include <iostream>
+#include "myClass.hpp"
+
+void func(int size) {
+  MyClass m(size);
+  m.memAllocate();
+}
+// 関数ブロックを抜けるとオブジェクトが解体されると同時に、newで確保したメモリ領域も解放される。
+
+int main() {
+  func(1000000);
+  func(2000000);
+  // スレッドがここに到達したとき、メモリはすでに解放済み。
+  return 0;
+}

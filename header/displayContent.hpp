@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include "displayChapter.hpp"
-#include "chapter1.hpp"
+#include "../utils/createChapter.hpp"
 
 class DisplayContent : public DisplayChapter {
 public:

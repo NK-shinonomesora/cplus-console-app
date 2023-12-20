@@ -1,1 +1,20 @@
-chapter1.sourceの内容です。
+#include <iostream>
+
+void createArray(int size) {
+  int array[size];
+  for(int i = 0; i < size; i++) {
+    array[i] = 1;
+  }
+  std::cout << "メモリ確保";
+  std::cin.get(); 
+  // この段階でプロセスにsize分のメモリが確保される。
+}
+
+int main() {
+  createArray(1000000);
+  // アクティビティモニタではメモリが解放されていないように見える。
+  createArray(2000000);
+  // 2回目実行後にプロセスが消費しているメモリは2回目で確保した分のみ。
+  // よって、関数終了後にメモリは解放されている模様。
+  return 0;
+}
