@@ -1,0 +1,81 @@
+// myClass.hpp
+
+#include <iostream>
+
+class MyClass {
+public:
+  MyClass();
+  MyClass(int size);
+  MyClass(MyClass&&); //ムーブコンストラクタ
+  MyClass& operator=(MyClass&&); //コピー代入
+  void memAllocate();
+  int get();
+
+private:
+  int size;
+  int* array;
+
+  template<typename T>
+  void swap(T& a, T& b);
+};
+-------------------------------------
+// myClass.cpp
+
+#include "myClass.hpp"
+
+MyClass::MyClass() {}
+
+MyClass::MyClass(int size) : size {size}, array{new int[size]} {}
+
+MyClass::MyClass(MyClass&& m) : size{m.size}, array{m.array} {
+  std::cout << "ムーブコンストラクタ実行" << std::endl;
+  m.array = nullptr;
+}
+
+MyClass& MyClass::operator=(MyClass&& m) {
+  std::cout << "ムーブ代入実行" << std::endl;
+  swap(array, m.array);
+  return *this;
+}
+
+void MyClass::memAllocate() {
+  for(int i = 0; i < size; i++) {
+    array[i] = 1;
+  }
+}
+
+int MyClass::get() {
+  return array[0];
+}
+
+template<typename T>
+void MyClass::swap(T& a, T& b) {
+  T tmp = std::move(a);
+  a = std::move(b);
+  b = std::move(tmp);
+}
+-----------------------------------------------
+// main.cpp
+
+#include <iostream>
+#include "myClass.hpp"
+
+void func(MyClass& m) {
+  m.memAllocate();
+}
+
+void func2(MyClass& m) {
+  std::cout << m.get() << std::endl;
+}
+
+int main() {
+  MyClass m(1000000);
+  func(m);
+  MyClass m2 = std::move(m); //ムーブコンストラクタを実行してmをm2にムーブする。これによりmのメンバの所有権がm2に移動する。
+  //ムーブ代入の場合
+  // MyClass m2;
+  // m2 = std::move(m);
+  func2(m2);
+
+  return 0;
+}

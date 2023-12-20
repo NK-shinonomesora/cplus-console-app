@@ -1,0 +1,19 @@
+#include <iostream>
+
+void arrayTest(int size) {
+  int* array = new int[size];
+  for(int i = 0; i < size; i++) {
+    array[i] = 1;
+  }
+  // この段階でプロセスにsize分のメモリが確保される。
+  delete[] array;
+  // 確保したメモリ領域を解放。
+}
+
+int main() {
+  arrayTest(1000000);
+  arrayTest(2000000);
+  // アクティビティモニタでは1回目で確保した領域だけ、プロセスがメモリを消費しているように見える。
+  // 1回目分は予約されたままとなっており、2回目分は完全に解放される模様。
+  return 0;
+}

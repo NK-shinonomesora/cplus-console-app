@@ -2,6 +2,7 @@
 #define DISPLAYCHAPTER_H
 
 #include "display.hpp"
+#include "chapter.hpp"
 
 class DisplayChapter : public Display {
 public:

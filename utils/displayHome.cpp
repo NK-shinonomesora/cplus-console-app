@@ -7,7 +7,7 @@ void display(Display& d) {
 void displayHome() {
   DisplayDescription dd;
   display(dd);
-  for(int i = 1; i < 3; i++) {
+  for(int i = 1; i <= CHAPTERNUM; i++) {
     DisplayTitle dt(i);
     display(dt);
   }

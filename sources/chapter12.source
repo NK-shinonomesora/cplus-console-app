@@ -1,0 +1,79 @@
+// myClass.hpp
+
+#include <iostream>
+#include <vector>
+
+class MyClass {
+public:
+  MyClass();
+  MyClass(int size);
+  MyClass(const MyClass&); //コピーコンストラクタ
+  MyClass& operator=(const MyClass&); //コピー代入
+  void memAllocate();
+  int get();
+
+private:
+  int size;
+  std::vector<int> v;
+};
+-----------------------------------
+// myClass.cpp
+
+#include "myClass.hpp"
+
+MyClass::MyClass() {}
+
+MyClass::MyClass(int size) : size {size} {}
+
+MyClass::MyClass(const MyClass& m) : size{m.size} {
+  std::cout << "コピーコンストラクタ実行" << std::endl;
+  for(const auto v2 : m.v) {
+    v.push_back(v2 + 1);
+  }
+}
+
+MyClass& MyClass::operator=(const MyClass& m) {
+  std::cout << "コピー代入実行" << std::endl;
+  size = m.size;
+  for(const auto v2 : m.v) {
+    v.push_back(v2 + 2);
+  }
+  return *this;
+}
+
+void MyClass::memAllocate() {
+  for(int i = 0; i < size; i++) {
+    v.push_back(1);
+  }
+}
+
+int MyClass::get() {
+  return v[0];
+}
+---------------------------------------
+// main.cpp
+
+#include <iostream>
+#include "myClass.hpp"
+
+void func(MyClass& m) {
+  m.memAllocate();
+}
+
+void func2(MyClass& m) {
+  std::cout << m.get() << std::endl;
+  //コピーコンストラクにて構築したオブジェクトの場合2が出力される。
+  //コピー代入にて構築したオブジェクトの場合3が出力される。
+}
+
+int main() {
+  MyClass m(1000000);
+  func(m);
+  MyClass m2{m}; //コピーコンストラクタが実行される。"MyClass m2 = m"のようにも書ける。
+  // 下記のようにした場合はコピー代入が実行される。
+  // MyClass m2;
+  // m2 = m;
+  func2(m2);
+
+  return 0;
+}
