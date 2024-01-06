@@ -16,3 +16,9 @@ Using g++ is an easy way.
 ```cli
 g++ -std=c++11 main.cpp cpp/* utils/*.cpp -o my-app
 ```
+#### Windows
+
+### Running this app
+```cli
+./my-app
+```
