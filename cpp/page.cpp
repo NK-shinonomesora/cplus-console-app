@@ -41,7 +41,7 @@ void Page::setState(State s) {
 void Page::change() {
   switch(state) {
     case State::HOME:
-      numOnHome == 0 ? exit() : toContent();
+      numOnHome == 0 ? exit() : (numOnHome >= 1 &&  numOnHome <= getChapterNum()) ? toContent() : toHome();
       break;
     case State::CONTENT:
       numOnContent == 0 ? exit() : numOnContent == 1 ? toHome() : toSource();

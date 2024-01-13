@@ -8,22 +8,18 @@ void displayNext(Page& page) {
       displayHome();
       break;
     case Page::State::CONTENT:;
-      displayChapter(new DisplayContent(page.getNumOnHome()));
-      displayHelp(new DisplayHelpContent());
+      display(new DisplayContent(page.getNumOnHome()));
+      display(new DisplayHelpContent());
       break;
     case Page::State::SOURCE:
-      displayChapter(new DisplaySource(page.getNumOnHome()));
-      displayHelp(new DisplayHelpSource());
+      display(new DisplaySource(page.getNumOnHome()));
+      display(new DisplayHelpSource());
       break;
     case Page::State::EXIT:
       break;
   }
 }
-
-void displayChapter(DisplayChapter* dc) {
-  dc->display();
-}
-
-void displayHelp(DisplayHelp* dh) {
-  dh->display();
+ 
+void display(Display* d) {
+  d->display();
 }

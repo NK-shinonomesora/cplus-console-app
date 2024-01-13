@@ -5,6 +5,7 @@
 #include "display.hpp"
 #include "displayDescription.hpp"
 #include "displayHelpHome.hpp"
+#include "../utils/chapterNum.hpp"
 
 class Page {
 public:
